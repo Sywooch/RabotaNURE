@@ -1,0 +1,161 @@
+html,
+body {
+    height: 100%;
+    background-color: rgb(240, 240, 240);
+    font-family: Segoe UI;
+    font-size: 11pt;
+    color: rgb(71,71,71);
+}
+
+hr {
+    border-color: #bbb;
+}
+
+.container {
+    margin-top: 10px;
+    background-color: rgb(255, 255, 255);
+}
+
+.footer {
+    background-color: rgb(230, 92, 32);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: #fff;
+}
+
+.footer a {
+    color: #fff;
+}
+
+.footer-contacts {
+    padding-top: 15px;
+}
+
+.footer-contacts > div > div {
+    line-height:0.9em;
+}
+
+.footer-contacts > div > div > p {
+    margin-bottom: 5px;
+}
+
+.footer-contacts > div > .icon {
+    font-size:20pt;
+    padding: 15px 10px 0 0;
+}
+
+.footer-contacts > div >.contacts {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.footer-menu > .block-heading {
+    font-weight: 300;
+}
+
+.footer-menu > ul {
+    padding-left: 1.2em;
+}
+
+.hint-block {
+    display: block;
+    margin-top: 5px;
+    color: #999;
+}
+
+.error-summary {
+    color: #a94442;
+    background: #fdf7f7;
+    border-left: 3px solid #eed3d7;
+    padding: 10px 20px;
+    margin: 0 0 15px 0;
+}
+
+.contacts {
+    line-height: 0.5;
+}
+
+.header {
+    padding: 25px 0;
+}
+
+.navbar-orange {
+    border-color: rgb(219, 88, 31);
+    background-color: rgb(230, 92, 32);
+}
+
+.navbar-orange > div > ul > li.dropdown > a{
+    border-color: rgb(219, 88, 31);
+    background-color: rgb(230, 92, 32);;
+}
+
+.navbar-orange > div > ul > li.dropdown.open > a{
+    border-color: rgb(234, 133, 89);
+    background-color: rgb(231, 124, 77);
+}
+
+.navbar-orange > div > ul > li > a {
+    color: rgb(255, 255, 255);
+}
+
+.navbar-orange > div > ul > li.active > a {
+    border-color: rgb(234, 133, 89);
+    background-color: rgb(231, 124, 77);
+}
+
+.navbar-orange > div > ul > li > a:hover {
+    border-color: rgb(234, 133, 89);
+    background-color: rgb(234, 133, 89);
+}
+
+.main-page-menu{
+    padding-left: 1.2em;
+}
+
+.main-page-menu > li {
+    list-style-type: disc;
+    color: rgb(230,92,32);
+}
+
+.main-page-menu li > a {
+    color: rgb(55,55,55);
+}
+
+.btn-more {
+    color: #fff;
+    background-color: #A9AFB2;
+    border-color: #989898;
+}
+
+.block-heading {
+    font-size: 18pt;
+    font-weight: 400;
+    line-height: 1.1;
+}
+
+.nure-link {
+    color: rgb(55,55,55);
+}
+
+.nure-link:hover {
+    color: rgb(55,55,55);
+}
+
+.thumbnail {
+    margin-bottom: 10px;
+}
+
+.sponsors-heading {
+    font-size: 25pt;
+    font-weight: 300;
+    color: rgb(230,92,32);
+    text-transform: uppercase;
+}
+
+.sponsors-items {
+    padding: 15px 0;
+}
+
+.sponsors-items > a {
+    padding-left: 25px;
+}
