@@ -86,7 +86,7 @@ hr {
 
 .navbar-orange > div > ul > li.dropdown > a{
     border-color: rgb(219, 88, 31);
-    background-color: rgb(230, 92, 32);;
+    background-color: rgb(230, 92, 32);
 }
 
 .navbar-orange > div > ul > li.dropdown.open > a{
@@ -97,6 +97,12 @@ hr {
 .navbar-orange > div > ul > li > a {
     color: rgb(255, 255, 255);
 }
+
+.navbar-orange > div > ul > li > a:focus {
+    border-color: rgb(219, 88, 31);
+    background-color: rgb(230, 92, 32);
+}
+
 
 .navbar-orange > div > ul > li.active > a {
     border-color: rgb(234, 133, 89);
@@ -158,4 +164,13 @@ hr {
 
 .sponsors-items > a {
     padding-left: 25px;
+}
+
+.caption > a {
+    color: #333;
+}
+
+.caption > a:hover {
+    color: #555;
+    text-decoration: none;
 }

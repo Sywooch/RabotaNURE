@@ -74,12 +74,13 @@ class SiteController extends Controller
         }
     }
 
-    public function actionRegistration($role='student')
+    public function actionRegistration($role='')
     {
         if (!\Yii::$app->user->isGuest) {
             $this->redirect(\Yii::$app->user->getReturnUrl());
         }  
-
+        if ($role=='')
+            return $this->render('registration');
         $model = new User();
         $role_model = new Company();
         $model->role = User::ROLE_COMPANY;

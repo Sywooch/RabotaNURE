@@ -5,7 +5,10 @@ use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\User */
+/* @var $role_model app\models\Student */
 /* @var $form ActiveForm */
+
+$this->title = Yii::t('app','Student registration');
 ?>
 <div class="site-registration_student">
 

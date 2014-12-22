@@ -17,9 +17,8 @@ class UserRoleRule extends Rule
                 return $role == User::ROLE_ADMIN;
             } elseif ($item->name === 'company') {
                 return $role == User::ROLE_COMPANY;
-                elseif ($item->name === 'student') {
-                    return $role == User::ROLE_STUDENT;
-                }
+            } elseif ($item->name === 'student') {
+                return $role == User::ROLE_STUDENT;
             }
         }
         return false;

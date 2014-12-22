@@ -1,5 +1,6 @@
 <?php
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
@@ -52,8 +53,8 @@ AppAsset::register($this);
             <li><a href="#"><?=Yii::t('app','Courses')?></a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><?=Yii::t('app','Login')?></a></li>
-            <li><a href="#"><?=Yii::t('app','Registration')?></a></li>
+            <li><a href="<?=Url::to(['site/login'])?>"><?=Yii::t('app','Login')?></a></li>
+            <li><a href="<?=Url::to(['site/registration'])?>"><?=Yii::t('app','Registration')?></a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><?=Yii::t('app','Language')?> <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">

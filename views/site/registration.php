@@ -1,30 +1,35 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\User */
-/* @var $form ActiveForm */
+
+$this->title = Yii::t('app','Registration');
 ?>
-<div class="registration">
+<div class="registration text-center">
 
-<h2>Registration</h2><br>
+<h2><?=Yii::t('app','Registration')?></h2><br>
 
-    <?php $form = ActiveForm::begin(); ?>
-
-        <?= $form->field($model, 'email')->textInput() ?>
-        <?= $form->field($model, 'password')->passwordInput() ?>
-        <?= $form->field($model, 'name')->textInput() ?>
-        <?= $form->field($model, 'phone')->textInput() ?>
-        <?= $form->field($model, 'country')->textInput() ?>
-        <?= $form->field($model, 'city')->textInput() ?>
-        <?= $form->field($model, 'zipCode')->textInput() ?>
-        <?= $form->field($model, 'address')->textInput() ?>
-    
-        <div class="form-group">
-            <?= Html::submitButton('Submit', ['class' => 'btn btn-primary']) ?>
+   <div class="row">
+       
+        <div class="col-md-6">
+            <div class="thumbnail">
+                <a href="<?=Url::to(['site/registration','role'=>'student'])?>"><img src="/images/student_registration.jpg" alt="<?=Yii::t('app','Student registration')?>" /></a>
+                <div class="caption text-center">
+                    <a href="<?=Url::to(['site/registration','role'=>'student'])?>"><h3 style="margin:0; padding:0;"><?=Yii::t('app','Student registration')?></h3></a>
+                </div>
+            </div>
         </div>
-    <?php ActiveForm::end(); ?>
+        <div class="col-md-6">
+            <div class="thumbnail">
+                <a href="<?=Url::to(['site/registration','role'=>'company'])?>"><img src="/images/company_registration.png" alt="<?=Yii::t('app','Company registration')?>" /></a>
+                <div class="caption text-center">
+                    <a href="<?=Url::to(['site/registration','role'=>'company'])?>"><h3 style="margin:0; padding:0;"><?=Yii::t('app','Company registration')?></h3></a>
+                </div>
+            </div>
+        </div>
+
+   </div>
 
 </div><!-- registration -->
