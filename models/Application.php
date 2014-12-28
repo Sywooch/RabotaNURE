@@ -44,10 +44,14 @@ class Application extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'short_name', 'description', 'address', 'email', 'website', 'public_info', 'practice', 'official_sponsor', 'multimedia_presentation', 'info_email', 'contact_name'], 'required'],
+            [['name', 'short_name', 'description', 'address', 'email', 'website', 'public_info', 'practice', 'official_sponsor', 'info_email', 'contact_name'], 'required'],
             [['description', 'public_info'], 'string'],
-            [['practice', 'official_sponsor', 'multimedia_presentation', 'sponsorship_value', 'sponsorship_position', 'idCompany'], 'integer'],
-            [['name', 'short_name', 'address', 'email', 'website', 'info_email', 'contact_name'], 'string', 'max' => 255]
+            [['practice', 'official_sponsor', 'multimedia_presentation', 'sponsorship_value', 'sponsorship_position', 'idCompany', 'fair_number'], 'integer'],
+            [['name', 'address', 'email', 'website', 'info_email', 'contact_name'], 'string', 'max' => 255],
+            [['short_name'], 'string', 'max' => 20],
+            [['public_info'], 'string', 'max' => 150],
+            [['email','info_email'],'email'],
+            ['website','url']
         ];
     }
 
@@ -58,20 +62,21 @@ class Application extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'name' => Yii::t('app', 'Name'),
-            'short_name' => Yii::t('app', 'Short Name'),
-            'description' => Yii::t('app', 'Description'),
+            'name' => Yii::t('app', 'Company name'),
+            'short_name' => Yii::t('app', 'Short name'),
+            'description' => Yii::t('app', 'Company activities'),
             'address' => Yii::t('app', 'Address'),
-            'email' => Yii::t('app', 'Email'),
+            'email' => Yii::t('app', 'E-mail'),
             'website' => Yii::t('app', 'Website'),
-            'public_info' => Yii::t('app', 'Public Info'),
-            'practice' => Yii::t('app', 'Practice'),
-            'official_sponsor' => Yii::t('app', 'Official Sponsor'),
-            'multimedia_presentation' => Yii::t('app', 'Multimedia Presentation'),
-            'info_email' => Yii::t('app', 'Info Email'),
-            'contact_name' => Yii::t('app', 'Contact Name'),
-            'sponsorship_value' => Yii::t('app', 'Sponsorship Value'),
-            'sponsorship_position' => Yii::t('app', 'Sponsorship Position'),
+            'public_info' => Yii::t('app', 'Public info'),
+            'practice' => Yii::t('app', 'Practice for students'),
+            'official_sponsor' => Yii::t('app', 'Official sponsorship'),
+            'multimedia_presentation' => Yii::t('app', 'Multimedia presentation'),
+            'info_email' => Yii::t('app', 'E-mail for notifications'),
+            'contact_name' => Yii::t('app', 'Contact name'),
+            'sponsorship_value' => Yii::t('app', 'Sponsorship value'),
+            'sponsorship_position' => Yii::t('app', 'Sponsorship position'),
+            'fair_number' => Yii::t('app', 'Fair number'),
             'idCompany' => Yii::t('app', 'Id Company'),
         ];
     }

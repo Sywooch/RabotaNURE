@@ -48,7 +48,7 @@ class Student extends \yii\db\ActiveRecord
             'idUser' => Yii::t('app', 'Id User'),
             'ticket' => Yii::t('app', 'Ticket'),
             'group' => Yii::t('app', 'Group'),
-            'birth_date' => Yii::t('app', 'Birth Date'),
+            'birth_date' => Yii::t('app', 'Birth date'),
         ];
     }
 

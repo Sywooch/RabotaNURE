@@ -12,6 +12,9 @@ use Yii;
  * @property string $title
  * @property string $text
  * @property string $lang
+ * @property integer $image_id
+ *
+ * @property Image $image
  */
 class Page extends \yii\db\ActiveRecord
 {
@@ -29,10 +32,11 @@ class Page extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'title', 'text', 'lang'], 'required'],
+            [['name', 'title', 'text', 'lang', 'image_id'], 'required'],
             [['text'], 'string'],
+            [['image_id'], 'integer'],
             [['name', 'title'], 'string', 'max' => 255],
-            [['lang'], 'string', 'max' => 4]
+            [['lang'], 'string', 'max' => 4],
         ];
     }
 
@@ -47,6 +51,15 @@ class Page extends \yii\db\ActiveRecord
             'title' => Yii::t('app', 'Title'),
             'text' => Yii::t('app', 'Text'),
             'lang' => Yii::t('app', 'Lang'),
+            'image_id' => Yii::t('app', 'Image ID'),
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getImage()
+    {
+        return $this->hasOne(Image::className(), ['id' => 'image_id']);
     }
 }

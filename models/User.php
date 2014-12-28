@@ -29,6 +29,8 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     const ROLE_COMPANY = 2;
     const ROLE_ADMIN = 10;
 
+    public $confirmation;
+
     public static function findIdentity($id)
     {
         $user = User::find()->where(['id'=>$id,'status'=>1])->one();
@@ -99,10 +101,10 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public function rules()
     {
         return [
-            [['login', 'password', 'name', 'email', 'role'], 'required'],
+            [['login', 'password', 'confirmation', 'name', 'email', 'role'], 'required'],
             [['date'], 'safe'],
             [['status', 'role'], 'integer'],
-            [['login', 'password', 'name', 'email', 'skype', 'phone', 'address'], 'string', 'max' => 255],
+            [['login', 'password', 'confirmation', 'name', 'email', 'skype', 'phone', 'address'], 'string', 'max' => 255],
             ['email','email'],
             [['login'], 'unique']
         ];
@@ -117,8 +119,9 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             'id' => Yii::t('app', 'ID'),
             'login' => Yii::t('app', 'Login'),
             'password' => Yii::t('app', 'Password'),
+            'confirmation' => Yii::t('app', 'Password confirmation'),
             'name' => Yii::t('app', 'Name'),
-            'email' => Yii::t('app', 'Email'),
+            'email' => Yii::t('app', 'E-mail'),
             'date' => Yii::t('app', 'Date'),
             'skype' => Yii::t('app', 'Skype'),
             'phone' => Yii::t('app', 'Phone'),
@@ -126,6 +129,16 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             'status' => Yii::t('app', 'Status'),
             'role' => Yii::t('app', 'Role'),
         ];
+    }
+
+    public function getRoleName()
+    {
+        switch ($this->role) {
+            case ROLE_STUDENT : return Yii::t('app','student'); break;
+            case ROLE_COMPANY : return Yii::t('app','company'); break;
+            case ROLE_ADMIN : return Yii::t('app','student'); break;
+            //default : return Yii::t('app','guest'); break;
+        }
     }
 
     /**
@@ -146,9 +159,16 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 
     public function register()
     {
+        if ($this->password != $this->confirmation) {
+            $this->password = '';
+            $this->confirmation = '';
+            $this->addError('password',Yii::t('app','Entered password and confirmation does not match.'));
+            return false;
+        }
         $this->password = sha1($this->password);
         if (!$this->save()) {
             $this->password = '';
+            $this->confirmation = '';
             return false;
         }
         else

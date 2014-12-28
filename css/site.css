@@ -174,3 +174,16 @@ hr {
     color: #555;
     text-decoration: none;
 }
+
+.application-field-description {
+    padding-left: 1.5em;
+    padding-bottom: 1.2em;
+}
+
+.application-form > div {
+    margin-top:0.5em;
+}
+
+.form-group > div > label {
+    font-weight: normal;
+}

@@ -32,9 +32,9 @@ class Company extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idUser', 'website', 'contact_name', 'logo_path'], 'required'],
+            [['idUser', 'website', 'contact_name'], 'required'],
             [['idUser'], 'integer'],
-            [['website', 'contact_name', 'logo_path'], 'string', 'max' => 255]
+            [['website', 'contact_name'], 'string', 'max' => 255]
         ];
     }
 
@@ -46,8 +46,8 @@ class Company extends \yii\db\ActiveRecord
         return [
             'idUser' => Yii::t('app', 'Id User'),
             'website' => Yii::t('app', 'Website'),
-            'contact_name' => Yii::t('app', 'Contact Name'),
-            'logo_path' => Yii::t('app', 'Logo Path'),
+            'contact_name' => Yii::t('app', 'Contact name'),
+            'logo_path' => Yii::t('app', 'Logo'),
         ];
     }
 
