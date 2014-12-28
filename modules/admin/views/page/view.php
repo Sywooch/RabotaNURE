@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use app\models\Image;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Page */
@@ -33,7 +34,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
             'text:ntext',
             'lang',
-            'image_id',
+            [
+                'attribute' => 'image_id',
+                'value' => Image::getImagePath($model->getImage()->one()),
+                'format' => ['image', ['width' => '100', 'height' => '100']],
+            ],
         ],
     ]) ?>
 

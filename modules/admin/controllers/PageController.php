@@ -8,6 +8,8 @@ use app\models\PageSearch;
 use app\modules\admin\controllers\DefaultController;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\Image;
+use yii\web\UploadedFile;
 
 /**
  * PageController implements the CRUD actions for Page model.
@@ -54,25 +56,71 @@ class PageController extends DefaultController
     }
 
     /**
-     * Creates a new Page model.
+     * Creates a new News model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Page();
+        $models = [
+            'ru' => new Page(),
+            'en' => new Page(),
+            'ua' => new Page()
+        ];
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
+        if (Yii::$app->request->isPost) {
+            //var_dump($_POST);
+            $img = UploadedFile::getInstance($models['ru'], '[ru]image_id');
+            $img = Image::saveByFile($img);
+            //var_dump($img);
+            
+            if (Page::loadMultiple($models, \Yii::$app->request->post())) {
+                if ($this->alreadyExists($models['ru']->name)) {
+                    //TODO: show some error page. cant do via validation it seems
+                    return $this->render('create', [
+                        'models' => $models
+                    ]);
+                }
+                $this->adjustModels($models, $img);
+                if (Page::validateMultiple($models)) {
+                    foreach ($models as $m) {
+                        $m->save();
+                    }
+                    return $this->redirect(['view', 'id' => $models['ru']->id]);
+                } else {
+                    //var_dump($models['ru']->getErrors());
+                    if ($img !== null) {
+                        $img->delete();
+                    }
+                }
+            }
+        } else { 
+            
             return $this->render('create', [
-                'model' => $model,
+                'models' => $models
             ]);
         }
     }
 
+    private static function adjustModels($models, $img) {
+        foreach ($models as $key => $m) {
+            $m->lang = Page::$langs[$key];
+            $m->name = $models['ru']->name;
+            if ($img !== null) {
+                $m->image_id = $img->id;
+            }
+        }
+    }
+
+    private static function alreadyExists($name) {
+        return count(
+            Page::find()
+            ->where(['name' => $name])
+            ->all()) > 0;
+    }
+
     /**
-     * Updates an existing Page model.
+     * Updates an existing News model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -81,7 +129,33 @@ class PageController extends DefaultController
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $oldName = $model->getOldAttributes()['name'];
+            
+            $file = UploadedFile::getInstance($model, 'image_id');
+            if ($file !== null) {
+                $img = Image::saveByFile($file);
+                $model->image_id = $img === null ? $model->getOldProperties()['image_id'] : $img->id;
+            }
+
+            $models = [];
+            if ($model->name !== $oldName) {
+                $models = array_merge(
+                        Page::find()->where(['name' => $oldName])->all(),
+                        [$model]
+                    );
+            } else {
+                $models = Page::find()
+                    ->where(['name' => $model->name])
+                    ->all();
+            }
+
+            foreach ($models as $m) {
+                $m->name = $model->name;
+                $m->image_id = $model->image_id;
+                $m->save();
+            }
+
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -91,23 +165,29 @@ class PageController extends DefaultController
     }
 
     /**
-     * Deletes an existing Page model.
+     * Deletes an existing News model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = Page::findOne($id);
+        $models = Page::find()
+            ->where(['name' => $model->name])
+            ->all();
+        foreach ($models as $m) {
+            $m->delete();
+        }
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Page model based on its primary key value.
+     * Finds the News model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Page the loaded model
+     * @return News the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)

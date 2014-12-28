@@ -18,6 +18,11 @@ use Yii;
  */
 class Page extends \yii\db\ActiveRecord
 {
+    public static $langs = [
+        'ru' => 'ru-RU',
+        'en' => 'en-US',
+        'ua' => 'uk'
+    ];
     /**
      * @inheritdoc
      */
@@ -32,11 +37,10 @@ class Page extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'title', 'text', 'lang', 'image_id'], 'required'],
+            [['name', 'title', 'text', 'lang'], 'required'],
             [['text'], 'string'],
-            [['image_id'], 'integer'],
             [['name', 'title'], 'string', 'max' => 255],
-            [['lang'], 'string', 'max' => 4],
+            [['lang'], 'string', 'max' => 5],
         ];
     }
 

@@ -64,20 +64,23 @@ class Image extends \yii\db\ActiveRecord
     }
 
     public static function saveByFile($uploadedFileInstance) {
-        $i = new Image();
-        $rnd = rand(0,99999);
-        $fileName = $rnd.'_'.$uploadedFileInstance->name; 
-        $filePath = Yii::$app->basePath.'/web/uploads/'.$fileName;
-        $uploadedFileInstance->saveAs($filePath);
-        $i->source = $filePath;
+        if ($uploadedFileInstance !== null) {
+            $i = new Image();
+            $rnd = rand(0,99999);
+            $fileName = $rnd . '_' . $uploadedFileInstance->name; 
+            $localPath = '/files/' . $fileName;
+            $filePath = Yii::$app->basePath . $localPath;
+            $uploadedFileInstance->saveAs($filePath);
+            $i->source = $localPath;
 
-        if ($i.save()) {
-            return $i;
+            if ($i->save()) {
+                return $i;
+            }
         }
         return null;
     }
 
-    public function getImagePath() {
-        return $this->source !== '' ? $this->source : Image::STUB_PATH;
+    public static function getImagePath($img) {
+        return $img !== null ? $img->source : Image::STUB_PATH;
     }
 }

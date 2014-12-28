@@ -35,7 +35,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'text:ntext',
             'date',
             'lang',
-            'image_id',
+            [
+                'attribute' => 'image_id',
+                'value' => Image::getImagePath($model->getImage()->one()),
+                'format' => ['image', ['width' => '100', 'height' => '100']],
+            ],
         ],
     ]) ?>
 

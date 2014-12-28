@@ -38,13 +38,13 @@ class News extends \yii\db\ActiveRecord
      */
     public function rules()
     {
+        // make the name unique somehow
         return [
-            [['name', 'title', 'description', 'text', 'date', 'lang', 'image_id'], 'required'],
+            [['name', 'title', 'description', 'text', 'date', 'lang'], 'required'],
             [['description', 'text'], 'string'],
-            [['image_id'], 'integer'],
             [['name', 'title'], 'string', 'max' => 255],
-            [['date'], 'string', 'max' => 10],
-            [['lang'], 'string', 'max' => 4],
+            [['date'], 'string', 'max' => 30],
+            [['lang'], 'string', 'max' => 5],
         ];
     }
 
