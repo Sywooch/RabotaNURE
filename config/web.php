@@ -13,7 +13,7 @@ $config = [
             'allowedIPs' => ['127.0.0.1', '37.57.33.110', '78.111.25.68'],
         ],
         'admin' => [
-            'class' => 'app\modules\admin\Module',
+            'class' => 'app\modules\admin\AdminModule',
         ],
     ],
     'components' => [

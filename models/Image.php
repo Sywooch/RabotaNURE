@@ -15,6 +15,8 @@ use Yii;
  */
 class Image extends \yii\db\ActiveRecord
 {
+    const STUB_PATH = '';
+    const FORMATS = "image/gif, image/jpeg, image/png";
     /**
      * @inheritdoc
      */
@@ -59,5 +61,23 @@ class Image extends \yii\db\ActiveRecord
     public function getPages()
     {
         return $this->hasMany(Page::className(), ['image_id' => 'id']);
+    }
+
+    public static function saveByFile($uploadedFileInstance) {
+        $i = new Image();
+        $rnd = rand(0,99999);
+        $fileName = $rnd.'_'.$uploadedFileInstance->name; 
+        $filePath = Yii::$app->basePath.'/web/uploads/'.$fileName;
+        $uploadedFileInstance->saveAs($filePath);
+        $i->source = $filePath;
+
+        if ($i.save()) {
+            return $i;
+        }
+        return null;
+    }
+
+    public function getImagePath() {
+        return $this->source !== '' ? $this->source : Image::STUB_PATH;
     }
 }

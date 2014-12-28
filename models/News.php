@@ -20,6 +20,11 @@ use Yii;
  */
 class News extends \yii\db\ActiveRecord
 {
+    public static $langs = [
+        'ru' => 'ru-RU',
+        'en' => 'en-US',
+        'ua' => 'uk'
+    ];
     /**
      * @inheritdoc
      */
