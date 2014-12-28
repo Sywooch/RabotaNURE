@@ -11,11 +11,13 @@ use app\models\ContactForm;
 use app\models\User;
 use app\models\Company;
 use app\models\Student;
+use yii\web\UploadedFile;
 
 class SiteController extends Controller
 {
 
     public $layout = 'orange_bootstrap';
+    private $image_array = ['image/gif', 'image/jpeg', 'image/png', 'images/jpg'];
 
     public function behaviors()
     {
@@ -91,9 +93,30 @@ class SiteController extends Controller
         }
         
         if ($model->load(Yii::$app->request->post()) && $role_model->load(Yii::$app->request->post()) && $model->register()) {
-            $role_model->idUser = $model->id;
-            if ($role_model->save())
-                return $this->render('registration_success', ['model' => $model]);
+            if ($role == 'student') {
+                $role_model->idUser = $model->id;
+                if ($role_model->save())
+                    return $this->render('registration_student_success', ['model' => $model]);
+            }
+            else {
+                $role_model->idUser = $model->id;
+                //Upload logo
+                if (isset($_FILES['Company']) && $_FILES['Company']['name']['logo_path']!="") {
+                    if (!in_array($_FILES['Company']['type']['logo_path'],$this->image_array))
+                        $role_model->addError('logo_path','Доступные расширения для файла: jpg, gif, png.');
+                    else
+                    {
+                        $rnd = rand(0,9999);
+                        $uploadedFile = UploadedFile::getInstance($role_model,'logo_path');
+                        $fileName = 'files/'.$rnd.'_'.$uploadedFile->name;
+                        $role_model->logo_path = $fileName;
+                        $uploadedFile->saveAs($fileName);
+                    }
+                }
+
+                if ($role_model->save())
+                    return $this->render('registration_company_success', ['model' => $model]);
+            }
         }
         return $this->render('registration_'.$role, ['model' => $model, 'role_model' => $role_model]);
     }

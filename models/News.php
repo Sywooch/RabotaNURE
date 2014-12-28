@@ -14,9 +14,17 @@ use Yii;
  * @property string $text
  * @property string $date
  * @property string $lang
+ * @property integer $image_id
+ *
+ * @property Image $image
  */
 class News extends \yii\db\ActiveRecord
 {
+    public static $langs = [
+        'ru' => 'ru-RU',
+        'en' => 'en-US',
+        'ua' => 'uk'
+    ];
     /**
      * @inheritdoc
      */
@@ -31,11 +39,11 @@ class News extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'title', 'description', 'text', 'date', 'lang'], 'required'],
+            [['name', 'title', 'description', 'text', 'date', 'lang', 'image_id'], 'required'],
             [['description', 'text'], 'string'],
             [['name', 'title'], 'string', 'max' => 255],
             [['date'], 'string', 'max' => 10],
-            [['lang'], 'string', 'max' => 4]
+            [['lang'], 'string', 'max' => 4],
         ];
     }
 
@@ -52,6 +60,15 @@ class News extends \yii\db\ActiveRecord
             'text' => Yii::t('app', 'Text'),
             'date' => Yii::t('app', 'Date'),
             'lang' => Yii::t('app', 'Lang'),
+            'image_id' => Yii::t('app', 'Image ID'),
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getImage()
+    {
+        return $this->hasOne(Image::className(), ['id' => 'image_id']);
     }
 }

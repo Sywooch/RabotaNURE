@@ -8,9 +8,12 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['gii','langLoader'],
     'modules' => [
-        'gii' => 'yii\gii\Module',
+        'gii' => [
+            'class' => 'yii\gii\Module',
+            'allowedIPs' => ['127.0.0.1', '37.57.33.110', '78.111.25.68'],
+        ],
         'admin' => [
-            'class' => 'app\modules\admin\Module',
+            'class' => 'app\modules\admin\AdminModule',
         ],
     ],
     'components' => [
@@ -80,7 +83,10 @@ if (YII_ENV_DEV) {
     $config['modules']['debug'] = 'yii\debug\Module';
 
     $config['bootstrap'][] = 'gii';
-    $config['modules']['gii'] = 'yii\gii\Module';
+    $config['modules']['gii'] = [
+        'class' => 'yii\gii\Module',
+        'allowedIPs' => ['127.0.0.1', '37.57.33.110', '78.111.25.68'],
+    ];
 }
 
 return $config;

@@ -43,9 +43,17 @@ AppAsset::register($this);
 
     <div> <!-- Menu -->
     <nav class="navbar navbar-orange" role="navigation">
-        <div class="collapse navbar-collapse">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#"><?=Yii::t('yii','Home')?></a></li>
+            <li><a href="/"><?=Yii::t('yii','Home')?></a></li>
             <li><a href="#"><?=Yii::t('app','About us')?></a></li>
             <li><a href="#"><?=Yii::t('app','News')?></a></li>
             <li><a href="#"><?=Yii::t('app','Job offers')?></a></li>
@@ -53,14 +61,26 @@ AppAsset::register($this);
             <li><a href="#"><?=Yii::t('app','Courses')?></a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="<?=Url::to(['site/login'])?>"><?=Yii::t('app','Login')?></a></li>
-            <li><a href="<?=Url::to(['site/registration'])?>"><?=Yii::t('app','Registration')?></a></li>
+
+            <?php 
+            if (Yii::$app->user->isGuest) {
+            ?>
+                <li><a href="<?=Url::to(['site/login'])?>"><?=Yii::t('app','Log in')?></a></li>
+                <li><a href="<?=Url::to(['site/registration'])?>"><?=Yii::t('app','Registration')?></a></li>
+            <?php
+            } else {
+            ?>
+                <li><a href="<?=Url::to(['user/account'])?>"><?=Yii::t('app','Account')?></a></li>
+                <li><a href="<?=Url::to(['site/logout'])?>" data-method="post"><?=Yii::t('app','Logout')?></a></li>
+            <?php
+            }
+            ?>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><?=Yii::t('app','Language')?> <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="/lang?lang=ru-RU"><?=Yii::t('app','Русский')?></a></li>
-                <li><a href="/lang?lang=uk"><?=Yii::t('app','Українська')?></a></li>
-                <li><a href="/lang?lang=en-US"><?=Yii::t('app','English')?></a></li>
+                <li><a href="/lang?lang=ru-RU&link=<?=Url::to()?>"><?=Yii::t('app','Русский')?></a></li>
+                <li><a href="/lang?lang=uk&link=<?=Url::to()?>"><?=Yii::t('app','Українська')?></a></li>
+                <li><a href="/lang?lang=en-US&link=<?=Url::to()?>"><?=Yii::t('app','English')?></a></li>
               </ul>
             </li>
           </ul>
@@ -86,7 +106,7 @@ AppAsset::register($this);
 
     <div class="footer col-md-12"> <!-- Footer -->
         <div class="col-md-9 col-sm-12"> <!-- Menus -->
-            <div class="col-md-3 col-sm-6 footer-menu">
+            <div class="col-md-3 col-sm-6 col-xs-6 footer-menu">
                 <h3 class="block-heading">Документы</h3>
                 <ul>
                     <li><a href="">Инфо</a></li>
@@ -97,7 +117,7 @@ AppAsset::register($this);
                     <li><a href="">бвллвлв</a></li>
                 </ul>
             </div>
-            <div class="col-md-3 col-sm-6 footer-menu">
+            <div class="col-md-3 col-sm-6 col-xs-6 footer-menu">
                 <h3 class="block-heading">Документы</h3>
                 <ul>
                     <li><a href="">Инфо</a></li>
@@ -108,7 +128,7 @@ AppAsset::register($this);
                     <li><a href="">бвллвлв</a></li>
                 </ul>
             </div>
-            <div class="col-md-3 col-sm-6 footer-menu">
+            <div class="col-md-3 col-sm-6 col-xs-6 footer-menu">
                 <h3 class="block-heading">Документы</h3>
                 <ul>
                     <li><a href="">Инфо</a></li>
@@ -119,7 +139,7 @@ AppAsset::register($this);
                     <li><a href="">бвллвлв</a></li>
                 </ul>
             </div>
-            <div class="col-md-3 col-sm-6 footer-menu">
+            <div class="col-md-3 col-sm-6 col-xs-6 footer-menu">
                 <h3 class="block-heading">Документы</h3>
                 <ul>
                     <li><a href="">Инфо</a></li>
@@ -133,11 +153,11 @@ AppAsset::register($this);
         </div> <!-- Menus -->
 
         <div class="col-md-3 col-sm-12 footer-contacts"> <!-- Contact info -->
-            <div class="col-md-12 col-sm-6" style="padding:0;">
+            <div class="col-md-12 col-sm-6 col-xs-6" style="padding:0;">
             <div class="col-md-2 icon"><span class="glyphicon glyphicon-home"></span></div><div class="contacts col-md-10"> <br><p> <?=Yii::t('app','61166, Ukraine, Kharkiv')?> </p><p> <?=Yii::t('app','av. Lenin, 14')?> </p><p><?=Yii::t('app','main build., cab. 372')?></p><p> (057) 702-16-46</p></div>
             <div class="clearfix" style="padding-bottom:5px;"></div>
             </div>
-            <div class="col-md-12 col-sm-6" style="padding:0;">
+            <div class="col-md-12 col-sm-6 col-xs-6" style="padding:0;">
             <div class="col-md-2 icon"><span class="glyphicon glyphicon-envelope"></span></div><div class="contacts col-md-10"><br><p><a href="mailto:mywork@kture.kharkov.ua"> mywork@kture.kharkov.ua</a></p>
                <p> <a href="mailto:yarmarka.kture@gmail.com">yarmarka.kture@gmail.com</a></p></div>
                <div class="clearfix"></div>

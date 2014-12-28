@@ -9,11 +9,14 @@ use Yii;
  *
  * @property integer $id
  * @property string $source
- * @property string $target
- * @property string $name
+ *
+ * @property News[] $news
+ * @property Page[] $pages
  */
 class Image extends \yii\db\ActiveRecord
 {
+    const STUB_PATH = '';
+    const FORMATS = "image/gif, image/jpeg, image/png";
     /**
      * @inheritdoc
      */
@@ -28,9 +31,8 @@ class Image extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['source', 'target', 'name'], 'required'],
-            [['source', 'name'], 'string', 'max' => 255],
-            [['target'], 'string', 'max' => 20]
+            [['source'], 'required'],
+            [['source'], 'string', 'max' => 255]
         ];
     }
 
@@ -42,8 +44,40 @@ class Image extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'source' => Yii::t('app', 'Source'),
-            'target' => Yii::t('app', 'Target'),
-            'name' => Yii::t('app', 'Name'),
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getNews()
+    {
+        return $this->hasMany(News::className(), ['image_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPages()
+    {
+        return $this->hasMany(Page::className(), ['image_id' => 'id']);
+    }
+
+    public static function saveByFile($uploadedFileInstance) {
+        $i = new Image();
+        $rnd = rand(0,99999);
+        $fileName = $rnd.'_'.$uploadedFileInstance->name; 
+        $filePath = Yii::$app->basePath.'/web/uploads/'.$fileName;
+        $uploadedFileInstance->saveAs($filePath);
+        $i->source = $filePath;
+
+        if ($i.save()) {
+            return $i;
+        }
+        return null;
+    }
+
+    public function getImagePath() {
+        return $this->source !== '' ? $this->source : Image::STUB_PATH;
     }
 }

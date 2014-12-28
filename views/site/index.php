@@ -20,8 +20,8 @@ $this->title = Yii::t('yii','Home');
 
         <div> <!--text-->
 
-            <div class="col-md-9 col-sm-6">
-                <div class="col-md-12 col-sm-12">
+            <div class="col-md-9 col-sm-6 col-xs-6">
+                <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="col-md-4">
                     <h3 class="block-heading">Практика</h3>
                     <ul class="main-page-menu">
@@ -105,7 +105,7 @@ $this->title = Yii::t('yii','Home');
 
             </div>
 
-            <div class="col-md-3 col-sm-6">
+            <div class="col-md-3 col-sm-6 col-xs-6">
                 <h3 class="block-heading"><?=Yii::t('app','Regulatory documents')?></h3>
                 <ul class="main-page-menu">
                     <li><a href="" target="_blank">Общие положения</a></li>
